@@ -49,7 +49,7 @@ function mergeEqual(array) {
       array[index] = null;
     } else {
       found[item.elem] = item;
-      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(found[item.elem].elemMods)); 
+      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(found[item.elem].elemMods));
     }
   });
 
@@ -135,7 +135,7 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
                 }
 
                 var contentCSS = this.toCSS(bemjson.content, ctxBlock);
-                return bemjson.elem ? `${space}${className}${SP}{${NL}${mods}${space}}${NL}${contentCSS}` : `${className}${SP}{${NL}${mods}${contentCSS}`;
+                return bemjson.elem ? `${space}${className}${SP}{${NL}${mods}${space}}${NL}${contentCSS}` : `${className}${SP}{${NL}${mods}${contentCSS}}`;
 
             }
         }

@@ -92,7 +92,7 @@ describe('serialize', function() {
                     }]}
               ]
           }).should.equal(
-                '.button{&__control{}&__default{&--active{}&--selected{}}'
+                '.button{&__control{}&__default{&--active{}&--selected{}}}'
             );
         });
     });
@@ -119,7 +119,7 @@ describe('serialize', function() {
                     }]}
               ]
           }).should.equal(
-                '.button{&__default{&--fixed{}&--active{}&--selected{}}'
+                '.button{&__default{&--fixed{}&--active{}&--selected{}}}'
             );
         });
     });
