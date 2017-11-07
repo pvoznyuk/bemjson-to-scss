@@ -120,8 +120,8 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
             }
         } else {
             className =  bemjson.elem ? '&__' + bemjson.elem : '.' + ctxBlock;
-            var space = bemjson.elem ? `${TB}${TB}` : ``;
-            var modSpace = space + `${TB}${TB}`;
+            var space = bemjson.elem ? `${TB}` : '';
+            var modSpace = space + `${TB}`;
 
             if (className) {
 
