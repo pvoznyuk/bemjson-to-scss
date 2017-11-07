@@ -26,7 +26,11 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
     if ( !bemjson ) { return ''; }
 
     if (typeof bemjson === 'string') {
-        bemjson = eval('(' + bemjson + ')');
+        try {
+          bemjson = eval('(' + bemjson + ')');
+        } catch (err) {
+          return '';
+        }
     }
 
     if (bemjson.block) {
