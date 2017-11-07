@@ -5,6 +5,7 @@ function BEMJSON (options) {
     options = options || {};
     options.compileTo = options.compileTo || 'scss';
     options.compact = options.compact || false;
+    options.tab = options.tab || '  ';
     options.modificatorSeparator = options.modificatorSeparator || '--';
 
     this._options = options;
@@ -18,6 +19,56 @@ BEMJSON.prototype.concatinateArray = function concatinateArray(array, ctxBlock) 
         }
     }
     return res;
+};
+
+function collect(array, result) {
+  array.forEach(function(el) {
+    if(Array.isArray(el.content)) {
+      var content = Array.from(el.content);
+      el.content = null;
+      el._unified = true;
+      result.push(el);
+      collect(content, result);
+    } else {
+      el.content = null;
+      el._unified = true;
+      result.push(el);
+    }
+
+  });
+}
+
+function toObject(entity) {
+  return (typeof entity === 'object') ? entity : {};
+}
+
+function mergeEqual(array) {
+  var found = {};
+
+  array.forEach(function(item, index) {
+    if (found[item.elem]) {
+      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(item.mods));
+      array[index] = null;
+    } else {
+      found[item.elem] = item;
+    }
+  });
+
+  while (array.indexOf(null) >= 0) {
+    array.splice(array.indexOf(null), 1);
+  }
+
+  return array;
+}
+
+BEMJSON.prototype.unifyJSON = function prototype(bemjson) {
+    if (Array.isArray(bemjson.content)) {
+      var collected = [];
+      collect(bemjson.content, collected);
+      bemjson.content = mergeEqual(collected);
+    }
+
+    return bemjson;
 };
 
 BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
@@ -34,6 +85,10 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
 
     if (bemjson.block) {
         ctxBlock = bemjson.block;
+    }
+
+    if (!bemjson._unified) {
+      bemjson = this.unifyJSON(bemjson);
     }
 
     if (Array.isArray(bemjson)) {
@@ -57,9 +112,7 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
                 if (bemjson.mods) {
                     for (var key in bemjson.mods) {
                         if (bemjson.mods.hasOwnProperty(key)) {
-                            if (bemjson.mods[key] == true ) {
-                                res += `.${className}${this._options.modificatorSeparator}${key}${SP}{${NL}}${NL}`;
-                            }
+                            res += `.${className}${this._options.modificatorSeparator}${key}${SP}{${NL}}${NL}`;
                         }
                     }
                 }
@@ -76,9 +129,7 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
                 if (bemjson.mods) {
                     for (var key in bemjson.mods) {
                         if (bemjson.mods.hasOwnProperty(key)) {
-                            if (bemjson.mods[key] == true ) {
-                                mods += `${modSpace}&${this._options.modificatorSeparator}${key}${SP}{${NL}${modSpace}}${NL}`;
-                            }
+                            mods += `${modSpace}&${this._options.modificatorSeparator}${key}${SP}{${NL}${modSpace}}${NL}`;
                         }
                     }
                 }

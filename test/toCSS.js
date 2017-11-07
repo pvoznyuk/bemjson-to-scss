@@ -41,31 +41,7 @@ describe('serialize', function() {
                 '.button{}.button__control{}.button__default{}'
             );
         });
-    })
-
-    describe('scss/elem', function() {
-        var bemjson = new (require('..'))({
-          compact: true
-        });
-
-        it('should serialize to SCSS', function() {
-            bemjson.toCSS({
-              block: 'button',
-              content: [
-                  { elem: 'control',
-                    content: [{
-                      elem: 'default',
-                      mods: {
-                        active: true,
-                        selected: true
-                      }
-                    }]}
-              ]
-          }).should.equal(
-                '.button{&__control{}&__default{&--active{}&--selected{}}'
-            );
-        });
-    })
+    });
 
     describe('css/mods', function() {
         var bemjson = new (require('..'))({
@@ -91,8 +67,60 @@ describe('serialize', function() {
                       }]}
                 ]
             }).should.equal(
-                '.button{}.button--main{}.button__control{}.button__default{}.button__default--active{}.button__default--selected{}'
+                '.button{}.button--main{}.button--hidden{}.button__control{}.button__default{}.button__default--active{}.button__default--selected{}'
             );
         });
-    })
+    });
+
+    describe('scss/elem', function() {
+        var bemjson = new (require('..'))({
+          compact: true
+        });
+
+        it('should serialize to SCSS', function() {
+            bemjson.toCSS({
+              block: 'button',
+              content: [
+                  { elem: 'control',
+                    content: [{
+                      elem: 'default',
+                      content: 'COPY',
+                      mods: {
+                        active: true,
+                        selected: true
+                      }
+                    }]}
+              ]
+          }).should.equal(
+                '.button{&__control{}&__default{&--active{}&--selected{}}'
+            );
+        });
+    });
+
+    describe('scss/dublicates', function() {
+        var bemjson = new (require('..'))({
+          compact: true
+        });
+
+        it('shouldn serialize each class only once and merge their mods', function() {
+            bemjson.toCSS({
+              block: 'button',
+              content: [
+                  { elem: 'default',
+                    mods: {
+                      fixed: true
+                    },
+                    content: [{
+                      elem: 'default',
+                      mods: {
+                        active: true,
+                        selected: true
+                      }
+                    }]}
+              ]
+          }).should.equal(
+                '.button{&__default{&--fixed{}&--active{}&--selected{}}'
+            );
+        });
+    });
 });
