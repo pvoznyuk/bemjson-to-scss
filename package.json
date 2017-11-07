@@ -1,0 +1,37 @@
+{
+  "name": "bemjson-to-scss",
+  "version": "0.1.0",
+  "description": "BEMJSON to CSS/SCSS serializer",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec",
+    "bundle": "browserify index.js --s BEMJSON > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pvoznyuk/bemjson-to-scss"
+  },
+  "keywords": [
+    "BEM",
+    "BEMJSON",
+    "HTML",
+    "CSS",
+    "SCSS",
+    "serialize"
+  ],
+  "author": "Pavlo Vozniuk <pavlo.vozniuk@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pvoznyuk/bemjson-to-scss/issues"
+  },
+  "homepage": "https://github.com/pvoznyuk/bemjson-to-scss",
+  "dependencies": {},
+  "devDependencies": {
+    "bh": "^3.2.2",
+    "browserify": "^14.5.0",
+    "enb": "^0.13.4",
+    "matcha": "^0.6.0",
+    "mocha": "^2",
+    "should": "^4.0.4"
+  }
+}
