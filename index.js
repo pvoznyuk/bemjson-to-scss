@@ -44,10 +44,11 @@ function mergeEqual(array) {
 
   array.forEach(function(item, index) {
     if (found[item.elem]) {
-      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(item.mods));
+      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(item.mods), toObject(item.elemMods));
       array[index] = null;
     } else {
       found[item.elem] = item;
+      found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(found[item.elem].elemMods)); 
     }
   });
 
