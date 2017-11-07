@@ -1,6 +1,3 @@
-var _NL_ = '\n\n';
-var _SP_ = ' ';
-
 function BEMJSON (options) {
     options = options || {};
     options.compileTo = options.compileTo || 'scss';
@@ -99,8 +96,9 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
         return this.toCSS(bemjson.content || '', ctxBlock);
     }
 
-    var NL = this._options.compact ? '' : _NL_;
-    var SP = this._options.compact ? '' : _SP_;
+    var NL = this._options.compact ? '' : '\n\n';
+    var SP = this._options.compact ? '' : ' ';
+    var TB = this._options.compact ? '' : this._options.tab;
 
     if (ctxBlock) {
         var className;
@@ -120,8 +118,8 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
             }
         } else {
             className =  bemjson.elem ? '&__' + bemjson.elem : '.' + ctxBlock;
-            var space = bemjson.elem ? `${SP}${SP}` : ``;
-            var modSpace = space + `${SP}${SP}`;
+            var space = bemjson.elem ? `${TB}${TB}` : ``;
+            var modSpace = space + `${TB}${TB}`;
 
             if (className) {
 
@@ -135,10 +133,8 @@ BEMJSON.prototype.toCSS = function toCSS(bemjson, ctxBlock) {
                 }
 
                 var contentCSS = this.toCSS(bemjson.content, ctxBlock);
+                return bemjson.elem ? `${space}${className}${SP}{${NL}${mods}${space}}${NL}${contentCSS}` : `${className}${SP}{${NL}${mods}${contentCSS}`;
 
-                var res = bemjson.elem ? `${space}${className}${SP}{${NL}${mods}${space}}${NL}${contentCSS}` : `${className}${SP}{${NL}${mods}${contentCSS}`;
-
-                return res;
             }
         }
     }

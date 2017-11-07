@@ -21,6 +21,7 @@ __Options__:
 
  * `compileTo` _String_ - `css` or `scss` to serialize to (default: `scss`).
  * `compact` _Boolean_ - removes all the whitespaces if `true`  (default: `false`).
+ * `tab` _String_ - you can choose tabs for inner classes e.g ` ` or `\t`  (default: `  `, two spaces).
  * `modificatorSeparator` _String_ - Suffix to use for mods instead of default `--` one. (E.g. `{modificatorSeparator: '_'}`).
 
 ### BEMJSON.toCSS(bemjson)

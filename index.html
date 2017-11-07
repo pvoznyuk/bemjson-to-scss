@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atom-one-dark.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
     <script
       src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -19,6 +21,7 @@
         width: 100%;
         height: 400px;
         resize: vertical;
+        font-family: 'Inconsolata', monospace;
       }
     </style>
 
@@ -73,7 +76,8 @@
       function serialize(target) {
           var bemjson = new BEMJSON({
             compileTo: target || 'scss',
-            modificatorSeparator: '--'
+            modificatorSeparator: '--',
+            tab: '  '
           });
 
           try {
