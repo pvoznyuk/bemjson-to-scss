@@ -27,10 +27,6 @@ __Options__:
 
 Returns serialized CSS string.
 
-### BEMJSON.toSCSS(bemjson)
-
-Returns serialized SCSS string.
-
 ## License
 
 MIT (c) [Pavlo Vozniuk](pavlo.vozniuk@gmail.com)
