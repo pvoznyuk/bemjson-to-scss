@@ -1,6 +1,6 @@
 {
   "name": "bemjson-to-scss",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "BEMJSON to CSS/SCSS serializer",
   "main": "index.js",
   "scripts": {
