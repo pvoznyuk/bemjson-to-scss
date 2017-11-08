@@ -112,7 +112,7 @@ describe('serialize', function() {
                     },
                     content: [{
                       elem: 'default',
-                      mods: {
+                      elemMods: {
                         active: true,
                         selected: true
                       }

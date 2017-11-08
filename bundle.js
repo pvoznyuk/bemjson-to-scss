@@ -46,10 +46,12 @@ function mergeEqual(array) {
   array.forEach(function(item, index) {
     if (found[item.elem]) {
       found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(item.mods), toObject(item.elemMods));
+      found[item.elem].elemMods = found[item.elem].mods;
       array[index] = null;
     } else {
       found[item.elem] = item;
       found[item.elem].mods = Object.assign({}, toObject(found[item.elem].mods), toObject(found[item.elem].elemMods));
+      found[item.elem].elemMods = found[item.elem].mods;
     }
   });
 
@@ -65,6 +67,10 @@ BEMJSON.prototype.unifyJSON = function prototype(bemjson) {
       var collected = [];
       collect(bemjson.content, collected);
       bemjson.content = mergeEqual(collected);
+    }
+
+    if (bemjson.elemMods) {
+      bemjson.mods = bemjson.elemMods;
     }
 
     return bemjson;
